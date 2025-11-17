@@ -7,17 +7,14 @@ import { Observable } from 'rxjs';
 })
 export class WeatherService {
 
-  private apiKey = 'dee32022e0msh5364e33da4b4382p1b547djsnb4620652eccd';
-  private apiUrl = 'https://weather-api167.p.rapidapi.com/api/weather';
+  private apiKey = 'b88faea4d059bfb05165a19560b05ce9';
+  private apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
   constructor(private http: HttpClient) { }
 
   searchWeatherByCity(city: string): Observable<any> {
-    const headers = new HttpHeaders()
-    .set("x-rapidapi-key", this.apiKey)
-    .set("x-rapidapi-host","weather-api167.p.rapidapi.com");
-
-    const options = {headers}
-    return this.http.get(`${this.apiUrl}/${city}`, options)
+    return this.http.get(
+      `${this.apiUrl}?q=${city}&appid=${this.apiKey}&units=metric`
+    )
   }
 }

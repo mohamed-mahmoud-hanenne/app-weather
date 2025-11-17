@@ -1,0 +1,49 @@
+.container {
+  max-width: 450px;
+  margin: 40px auto;
+  text-align: center;
+  font-family: Arial;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+input {
+  padding: 10px;
+  width: 65%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #2196f3;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #006dc8;
+}
+
+.loading {
+  color: #333;
+}
+
+.error {
+  color: red;
+  margin-bottom: 15px;
+}
+
+.result {
+  margin-top: 20px;
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+}

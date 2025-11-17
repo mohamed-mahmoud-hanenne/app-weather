@@ -1,24 +1,32 @@
-<div class="container mt-5 p-4 w-50" [formGroup] = searchForm>
-  <div class="input-group mb-4 d-flex justify-content-center">
-    <input
-      type="search"
-      class="form-control form-control-lg"
-      placeholder="Search..."
-      formControlName = "city"
-    />
-    <button class="btn btn-success btn-lg px-4" (click)="searchWeather()">Search</button>
+<div class="container">
+  <h2>Weather App 🌤️</h2>
+
+  <div class="search-box">
+    <input type="text" placeholder="Entrer une ville..." [(ngModel)]="city">
+    <button (click)="searchWeather()">Chercher</button>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <img src="/assets/images/weather.jpg" />
-        <p>30°C</p>
-      </div>
+  <!-- loading -->
+   <div *ngIf="loading" class="loading">
+    Chargement...
+   </div>
 
-      <div class="col bg-primary-subtle text-center">
-        <p>London</p>
-      </div>
+   <!-- erreur -->
+    <div *ngIf="errorMessage" class="error">
+      {{errorMessage}}
     </div>
-  </div>
+
+    <!-- Resultats -->
+     <div *ngIf="weatherData" class="result">
+      <h3>{{weatherData.name}}, {{weatherData.sys.country}}</h3>
+
+      <p>Température : {{weatherData.main.temp}} °C</p>
+      <p> Ciel : {{weatherData.weather[0].description}}</p>
+      <p> Vent : {{weatherData.wind.speed}} m/s</p>
+      <p> Humidité : {{weatherData.main.humidity}} %</p>
+      
+      <img 
+      [src]="'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png'"
+      alt="weather icon">
+     </div>
 </div>

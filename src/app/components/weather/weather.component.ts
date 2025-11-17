@@ -1,28 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { WeatherService } from '../../service/weather.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-weather',
-  imports: [ ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './weather.component.html',
   styleUrl: './weather.component.scss'
 })
-export class WeatherComponent implements OnInit{
-  searchForm!: FormGroup
+export class WeatherComponent {
+ 
+  city: string = '';
+  weatherData: any = null;
+  loading = false;
+  errorMessage = '';
 
-  constructor(private fb: FormBuilder, private weatherService: WeatherService){}
-
-  ngOnInit(): void {
-    this.searchForm = this.fb.group({
-      city: [null, Validators.required]
-    })
-  }
+  constructor(private weatherService: WeatherService){}
 
   searchWeather() {
-    console.log(this.searchForm.value)
-    this.weatherService.searchWeatherByCity(this.searchForm.get(['city'])!.value).subscribe((res) => {
-      console.log(res)
-    })
+    if (!this.city.trim()){
+      this.errorMessage = "Veuillez entrer une ville";
+      return;
+    }
+
+    this.loading = true;
+    this.errorMessage = '';
+    this.weatherData = null;
+
+    this.weatherService.searchWeatherByCity(this.city).subscribe({
+      next: (data) => {
+        this.weatherData = data;
+        this.loading = false;
+      },
+
+      error: (err) => {
+        this.loading = false;
+
+        if(err.status === 404){
+          this.errorMessage = "Ville introuvable !";
+        } else if (err.status === 401) {
+          this.errorMessage = "Erreur API : clé API invalide"
+        } else {
+          this.errorMessage = "Une erreur est servenue"
+        }
+      }
+    });
   }
 }
