@@ -1,10 +1,9 @@
----
-# 🌦️ WeatherApp Application météo Angular
+# WeatherApp – Application météo Angular
 
 ## Présentation
 **WeatherApp** est une application web développée avec **Angular** permettant d’afficher les conditions météorologiques actuelles d’une ville donnée.
 
-L’application récupère les données météo via une API et affiche les informations principales de manière claire.
+L’application récupère les données météo via une API REST et affiche les informations principales de manière claire et lisible.
 
 ---
 
